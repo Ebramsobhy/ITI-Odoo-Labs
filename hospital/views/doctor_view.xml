@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+        <record id="hms_doctor_tree_view" model="ir.ui.view">
+            <field name="name">Doctors Tree View</field>
+            <field name="model">hms.doctor</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="first_name"/>
+                    <field name="last_name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="hospital_doctors_action" model="ir.actions.act_window">
+            <field name="name">Doctors</field>
+            <field name="res_model">hms.doctor</field>
+        </record>
+        <menuitem id="hms_doctor_view" name="Doctors" parent="patient_menu" action="hospital_doctors_action"/>
+
+         <record id="hms_doctor_form_view" model="ir.ui.view">
+            <field name="name">Doctor Form View</field>
+            <field name="model">hms.doctor</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                       <notebook string = 'Doctors Information'>
+                        <page string = 'Doctors Information'>
+                          <group>
+                             <field name="first_name"/>
+                             <field name="last_name"/>
+                             <field name="image"/>
+                          </group>
+                        </page>
+                       </notebook>
+                       <separator string="Patients Information"  style="text-align:center; padding-top:10px; padding-bottom:10px;"/>
+                        <group>
+                             <field name="patient_ids">
+                               <tree>
+                                 <field name="first_name"/>
+                                 <field name="last_name"/>
+                                 <field name="age"/>
+                                </tree>
+                             </field>
+                          </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

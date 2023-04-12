@@ -1,0 +1,84 @@
+<odoo>
+  <data>
+    <record id="patients_action" model="ir.actions.act_window">
+      <field name="name">Patients</field>
+      <field name="res_model">hms.patient</field>
+    </record>
+
+    <menuitem name="Hospital" id="patient_menu"/>
+    <menuitem name="Patients" id="patients_menu" parent="patient_menu" action="patients_action"/>
+
+    <record id="patients_tree_view" model="ir.ui.view">
+      <field name="name">Patients Tree View</field>
+      <field name="model">hms.patient</field>
+      <field name="arch" type="xml">
+        <tree string="Patients">
+          <field name="first_name"/>
+          <field name="last_name"/>
+          <field name="department_id"/>
+        </tree>
+      </field>
+    </record>
+     
+     <record id="hms_patient_form_view" model="ir.ui.view">
+            <field name="name">Patients Form View</field>
+            <field name="model">hms.patient</field>
+            <field name="arch" type="xml">
+                <form>
+                   <header>
+                       <button name="button_clicked" type="object" string="Trail_Button" />
+                       <field name="states" widget="statusbar" nolabel="1" options="{'clickable':'1'}" />
+                   </header>
+                    <sheet>
+                        <notebook string = 'Patient Data'>
+                            <page string = 'Personal Information'>
+                                <group string="Personal Information">
+                                    <field name="first_name"/>
+                                    <field name="last_name"/>
+                                    <field name="email"/>
+                                    <field name="image"/>
+                                    <field name="age"/>
+                                    <field name="birth_date"/>
+                                 </group>
+                            </page>
+                            <page string = 'Medical Information'>>
+                            <group string="Medical Information">
+                                <field name="history" attrs="{'invisible':[('age','&lt;',50)]}"/>
+                                <field name="blood_type"/>
+                                <field name="pcr"/>
+                                <field name="cr_ratio" attrs="{'required':[('pcr','=',True)]}"/>
+                            </group>
+                            </page>
+ 
+                            <page string = 'Department Information'>
+                                <group string = 'Department Information'>
+                                    <field name="department_id" string = 'Department Name'/>
+                                    <field name = 'department_capacity' string = 'Department Capacity'/>  
+                                    <field name="department_id" domain = "[('is_opened' , '!=', False)]"/> 
+                                </group>
+                            </page>
+
+                            <page string = 'Doctors Information'>
+                                <group string = 'Doctors Information'>
+                                    <field name="doctor_ids" string = 'Doctor Name'/>
+                                    <field name="doctor_ids" widget="many2many_tags"
+                                     attrs="{'readonly':[('department_id','=',False)]}" />
+                                </group>
+                            </page>
+
+                                 <page string="State Logs">
+                                          <field name="states_log">
+                                               <tree>
+                                                   <field name="create_date"/>
+                                                   <field name="create_uid"/>
+                                                   <field name="description"/>
+                                               </tree>
+                                          </field>
+                                  </page> 
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+  </data>
+</odoo>
