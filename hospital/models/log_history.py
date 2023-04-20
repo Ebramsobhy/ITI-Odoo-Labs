@@ -6,3 +6,5 @@ class Hmsloghistory(models.Model):
 
     description = fields.Text()
     patient_ids = fields.Many2one('hms.patient')
+
+
